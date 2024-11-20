@@ -1,0 +1,40 @@
+name: Deploy and Notify Sentry
+
+on:
+  push:
+    branches:
+      - main # main 브랜치로 푸시될 때 트리거
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # GitHub Actions에서 사용할 OS 환경
+
+    steps:
+      # 1. 리포지토리 클론
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Node.js 설정
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # 사용할 Node.js 버전
+
+      # 3. 의존성 설치
+      - name: Install dependencies
+        run: npm install
+
+      # 4. 프로젝트 빌드
+      - name: Build project
+        run: npm run build
+
+      # 5. Sentry 배포 알림
+      - name: Notify Sentry of Deployment
+        env: # 환경 변수 설정
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }} # GitHub Secrets에서 가져온 토큰
+          SENTRY_ORG: codeit # Sentry 조직 이름
+          SENTRY_PROJECT: code-it-ci-cd # Sentry 프로젝트 이름
+        run: |
+          npx sentry-cli releases new "your-release-name" # 새 릴리즈 생성
+          npx sentry-cli releases set-commits "your-release-name" --auto # 커밋 연결
+          npx sentry-cli releases finalize "your-release-name" # 릴리즈 완료
