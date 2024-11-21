@@ -38,6 +38,6 @@ jobs:
           SENTRY_ORG: codeit # Sentry 조직 이름
           SENTRY_PROJECT: code-it-ci-cd # Sentry 프로젝트 이름
         run: |
-          npx sentry-cli releases new "your-release-name" # 새 릴리즈 생성
-          npx sentry-cli releases set-commits "your-release-name" --auto # 커밋 연결
-          npx sentry-cli releases finalize "your-release-name" # 릴리즈 완료
+          npx sentry-cli releases new "codeit" # 새 릴리즈 생성
+          npx sentry-cli releases set-commits "codeit" --auto # 커밋 연결
+          npx sentry-cli releases finalize "codeit" # 릴리즈 완료
