@@ -1,18 +1,54 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
-  Explore-GitHub-Actions:
+  Test-and-Build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18, 20] # Node.js 18과 20에서 실행
     steps:
+      # 기본 정보 출력
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      
+      # 레포지토리 코드 체크아웃
       - name: Check out repository code
         uses: actions/checkout@v4
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+
+      # Node.js 설정
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # 의존성 설치
+      - name: Install dependencies
+        run: npm install
+
+      # 테스트 실행
+      - name: Run tests
+        run: npm run test
+
+      # 빌드 실행
+      - name: Run build
+        run: npm run build
+
+      # 기본 파일 리스트 출력
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+
+      # 상태 확인
       - run: echo "🍏 This job's status is ${{ job.status }}."
