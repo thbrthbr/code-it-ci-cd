@@ -2,8 +2,8 @@ name: Deploy and Notify Sentry
 
 on:
   pull_request:
-        branches:
-          - main # main 브랜치로 푸시될 때 트리거
+    branches:
+      - main # main 브랜치로 푸시될 때 트리거
 
 jobs:
   Test-and-Build:
@@ -30,4 +30,3 @@ jobs:
       # 4. 프로젝트 빌드
       - name: Build project
         run: npm run build && npm run test
-
