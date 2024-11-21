@@ -1,0 +1,11 @@
+version: 2.1
+
+orbs:
+  cypress: cypress-io/cypress@2.17.3
+
+workflows:
+  cypress-tests:
+    jobs:
+      - cypress/run:
+          browser: chrome
+          command: npm run test
