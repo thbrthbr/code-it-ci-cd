@@ -1,9 +1,9 @@
 name: Deploy and Notify Sentry
 
 on:
-  push:
-    branches:
-      - main # main 브랜치로 푸시될 때 트리거
+  pull_request:
+        branches:
+          - main # main 브랜치로 푸시될 때 트리거
 
 jobs:
   Test-and-Build:
