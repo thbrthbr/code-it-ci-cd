@@ -30,3 +30,13 @@ jobs:
       # 4. 프로젝트 빌드
       - name: Build project
         run: npm run build && npm run test
+
+        # Run Jest tests with coverage
+      - name: Run tests and generate coverage report
+        run: npm test -- --coverage
+
+      # Upload coverage to Codecov
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}  # Secret token from Codecov
