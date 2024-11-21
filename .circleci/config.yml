@@ -9,4 +9,4 @@ workflows:
     jobs:
       - cypress/run:
           browser: chrome
-          command: npm run test
+          start-command: npm run test
