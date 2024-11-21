@@ -6,8 +6,11 @@ on:
       - main # main 브랜치로 푸시될 때 트리거
 
 jobs:
-  build:
-    runs-on: ubuntu-latest # GitHub Actions에서 사용할 OS 환경
+  Test-and-Build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
 
     steps:
       # 1. 리포지토리 클론
@@ -18,7 +21,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16' # 사용할 Node.js 버전
+          node-version: ${{ matrix.node-version }} # 사용할 Node.js 버전
 
       # 3. 의존성 설치
       - name: Install dependencies
