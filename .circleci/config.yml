@@ -8,4 +8,4 @@ workflows:
   build:
     jobs:
       - cypress/run:
-          start-command: npm run cy:open
+          start-command: npm run test
