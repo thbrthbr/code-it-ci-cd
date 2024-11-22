@@ -6,7 +6,7 @@
 describe('Homepage Tests', () => {
   beforeEach(() => {
     // 기본 경로로 이동
-    cy.visit('http://localhost:3002/');
+    cy.visit('http://localhost:3000/');
   });
 
   it('should display "Get started by" text on the homepage', () => {
