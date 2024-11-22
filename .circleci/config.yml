@@ -1,35 +1,47 @@
+version: 2.1
+orbs:
+  # "cypress-io/cypress@3" installs the latest published
+  # version "s.x.y" of the orb. We recommend you then use
+  # the strict explicit version "cypress-io/cypress@3.x.y"
+  # to lock the version and prevent unexpected CI changes
+  cypress: cypress-io/cypress@3.3.1
+
+jobs:
+  cypress-run:
+    executor:
+      name: cypress/default
+      node-version: '20.6.0'
+    steps:
+      - cypress/install
+      - cypress/run-tests:
+          cypress-command: 'npx wait-on@latest http://localhost:3000 && npx cypress run'
+          start-command: 'npm run build && npm run start'
+
+workflows:
+  build:
+    jobs:
+      - cypress-run
 # version: 2.1
 # orbs:
 #   cypress: cypress-io/cypress@3
+
+# executors:
+#   node-executor:
+#     docker:
+#       - image: circleci/node:18.17.0-browsers # Node.js 18.17.0 이상 및 Cypress 실행을 위한 브라우저 포함
+
 # workflows:
 #   build-and-test:
 #     jobs:
 #       - cypress/run:
-#           start-command: 'npm run start'
-
-version: 2.1
-orbs:
-  cypress: cypress-io/cypress@3
-
-executors:
-  node-executor:
-    docker:
-      - image: circleci/node:18.17.0-browsers # Node.js 18.17.0 이상 및 Cypress 실행을 위한 브라우저 포함
-
-workflows:
-  build-and-test:
-    jobs:
-      - cypress/install:
-          executor: node-executor
-      - cypress/run:
-          executor: node-executor
-          pre-steps:
-            - checkout # 코드 체크아웃
-            - run:
-                name: Install dependencies
-                command: npm install
-            - run:
-                name: Build project
-                command: npm run build
-          start-command: npm run start
-          wait-on: http://localhost:3000 # 로컬 서버가 실행될 때까지 대기
+#           executor: node-executor
+#           pre-steps:
+#             - checkout # 코드 체크아웃
+#             - run:
+#                 name: Install dependencies
+#                 command: npm install
+#             - run:
+#                 name: Build project
+#                 command: npm run build
+#           start-command: npm run start
+#           wait-on: http://localhost:3000 # 로컬 서버가 실행될 때까지 대기
