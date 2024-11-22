@@ -1,6 +1,4 @@
-import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Page from './page';
 
 // describe('Page', () => {
 //   test('renders an element with "Get started by" text', () => {
