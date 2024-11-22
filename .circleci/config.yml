@@ -9,4 +9,5 @@ workflows:
     jobs:
       - cypress/run:
           browser: chrome
-          start-command: npm run test
+          start-command: npm run start
+          wait-on: 'http://localhost:3000'
