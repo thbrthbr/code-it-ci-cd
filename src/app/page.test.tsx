@@ -21,7 +21,7 @@ import '@testing-library/jest-dom';
 describe('Homepage Tests', () => {
   beforeEach(() => {
     // 기본 경로로 이동
-    cy.visit('/http://localhost:3000/');
+    cy.visit('http://localhost:3000/');
   });
 
   it('should display "Get started by" text on the homepage', () => {
