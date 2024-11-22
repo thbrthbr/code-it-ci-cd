@@ -2,9 +2,9 @@ version: 2.1
 orbs:
   cypress: cypress-io/cypress@3
 workflows:
-  use-my-orb:
+  code-it-ci-cd:
     jobs:
       - cypress/run:
           cypress-command: npx cypress run --browser chrome
           install-browsers: true
-          start-command: npm run dev
+          start-command: npm run start:dev
