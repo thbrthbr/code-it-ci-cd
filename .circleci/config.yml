@@ -5,9 +5,7 @@ orbs:
   cypress: cypress-io/cypress@3
 
 workflows:
-  cypress-tests:
+  build:
     jobs:
       - cypress/run:
-          browser: chrome
           start-command: npm run start
-          wait-on: 'http://localhost:3000'
